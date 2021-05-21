@@ -20,28 +20,28 @@ class CustomerServiceImplTest {
     private final List<WashPack> packs = new ArrayList<>(Arrays.asList(new WashPack("basic-wash", 999),
             new WashPack("advanced-wash", 1999)));
 
-    private final List<AddOn> addOnList = new ArrayList<>(Arrays.asList(new AddOn("interior-clean",499),
-            new AddOn("Sanitization",599),
-            new AddOn("Teflon-Coating",699),
-            new AddOn("Engine-Care",799)));
+    private final List<AddOn> addOnList = new ArrayList<>(Arrays.asList(new AddOn("interior-clean", 499),
+            new AddOn("Sanitization", 599),
+            new AddOn("Teflon-Coating", 699),
+            new AddOn("Engine-Care", 799)));
 
     @Test
     @DisplayName("Get the list of Wash Packages")
     void getPacks() {
-        List<WashPack> washPackList = Arrays.asList(new WashPack("one",23),
-                new WashPack("one",2234),
-                new WashPack("interior",673),
-                new WashPack("engine",55));
+        List<WashPack> washPackList = Arrays.asList(new WashPack("one", 23),
+                new WashPack("one", 2234),
+                new WashPack("interior", 673),
+                new WashPack("engine", 55));
         when(customerServiceImplMock.getAllWashPackages()).thenReturn(washPackList);
     }
 
     @Test
     @DisplayName("Get wash pack by Name")
     void getPack() {
-        List<WashPack> washPackList = Arrays.asList(new WashPack("one",23),
-                new WashPack("one",2234),
-                new WashPack("interior",673),
-                new WashPack("engine",55));
+        List<WashPack> washPackList = Arrays.asList(new WashPack("one", 23),
+                new WashPack("one", 2234),
+                new WashPack("interior", 673),
+                new WashPack("engine", 55));
         when(customerServiceImplMock.getPack("one")).thenReturn(washPackList.get(1));
     }
 
@@ -55,7 +55,7 @@ class CustomerServiceImplTest {
     @DisplayName("Find customer by Name")
     void findByName() {
         Customer customer = new Customer(
-                1,"a","pass",new ArrayList<String>(),"suv","email","CUSTOMER");
+                1, "a", "pass", new ArrayList<String>(), "suv", "email", "CUSTOMER");
         when(customerServiceImplMock.findByName("customer")).thenReturn(customer);
     }
 
@@ -70,75 +70,75 @@ class CustomerServiceImplTest {
     @DisplayName("Pay after wash with  ratings")
     void doPay() {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",new AddOn("sanitize",599),new Date(),"success","email");
-        when(customerServiceImplMock.doPay(order,new RatingReview("good",5))).thenReturn(
-                new TransactionResponse(order,order.getDate().toString(),order.getAmount(),"Testing Do-Pay"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", new AddOn("sanitize", 599), new Date(), "success", "email");
+        when(customerServiceImplMock.doPay(order, new RatingReview("good", 5))).thenReturn(
+                new TransactionResponse(order, order.getDate().toString(), order.getAmount(), "Testing Do-Pay"));
     }
 
     @Test
     @DisplayName("Pay, with ratings")
     void doPayWithoutAddOn() {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",null,new Date(),"success","email@email.com");
-        when(customerServiceImplMock.doPay(order,new RatingReview("good",5))).thenReturn(
-                new TransactionResponse(order,order.getDate().toString(),order.getAmount(),"Testing Do-Pay"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", null, new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.doPay(order, new RatingReview("good", 5))).thenReturn(
+                new TransactionResponse(order, order.getDate().toString(), order.getAmount(), "Testing Do-Pay"));
     }
 
     @Test
     @DisplayName("Pay after wash without ratings")
     void doPayWithoutRating() {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",new AddOn("sanitize",599),new Date(),"success","email");
-        when(customerServiceImplMock.doPay(order,null)).thenReturn(
-                new TransactionResponse(order,order.getDate().toString(),order.getAmount(),"Testing Do-Pay"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", new AddOn("sanitize", 599), new Date(), "success", "email");
+        when(customerServiceImplMock.doPay(order, null)).thenReturn(
+                new TransactionResponse(order, order.getDate().toString(), order.getAmount(), "Testing Do-Pay"));
     }
 
     @Test
     @DisplayName("Pay without ratings and AddOn")
     void doPayWithoutRatingAndAddOn() {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",null,new Date(),"success","email@email.com");
-        when(customerServiceImplMock.doPay(order,null)).thenReturn(
-                new TransactionResponse(order,order.getDate().toString(),order.getAmount(),"Testing Do-Pay"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", null, new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.doPay(order, null)).thenReturn(
+                new TransactionResponse(order, order.getDate().toString(), order.getAmount(), "Testing Do-Pay"));
     }
 
 
     @Test
     @DisplayName("Test Pay After Wash with Transaction Response")
     void payAfterWash() throws Exception {
-        RatingReview ratingReview = new RatingReview("good",5);
+        RatingReview ratingReview = new RatingReview("good", 5);
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",null,new Date(),"success","email@email.com");
-        when(customerServiceImplMock.payAfterWash(ratingReview)).thenReturn(new TransactionResponse(order,order.getDate().toString(),order.getAmount(),"Testing Do-Pay"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", null, new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.payAfterWash(ratingReview)).thenReturn(new TransactionResponse(order, order.getDate().toString(), order.getAmount(), "Testing Do-Pay"));
     }
 
     @Test
     @DisplayName("Placing Order with Wash-Pack Only")
     void placeOrder() throws Exception {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",null,new Date(),"success","email@email.com");
-        when(customerServiceImplMock.placeOrder("basic",null)).thenReturn(new OrderResponse(order,"placed"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", null, new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.placeOrder("basic", null)).thenReturn(new OrderResponse(order, "placed"));
     }
 
     @Test
     @DisplayName("Placing Order with Wash-Pack and AddOn")
     void placeOrderWithAddOn() throws Exception {
         Order order = new Order(
-                1,"basic","suv",1234,
-                "customer1","washer1",new AddOn("sanitize",499),new Date(),"success","email@email.com");
-        when(customerServiceImplMock.placeOrder("basic",null)).thenReturn(new OrderResponse(order,"placed"));
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", new AddOn("sanitize", 499), new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.placeOrder("basic", null)).thenReturn(new OrderResponse(order, "placed"));
     }
 
     @Test
     @DisplayName("Testing Rating - Review")
     void giveRatingAndReview() {
-        when(customerServiceImplMock.giveRatingAndReview(new RatingReview("good",5))).thenReturn(new RatingReview("good",5));
+        when(customerServiceImplMock.giveRatingAndReview(new RatingReview("good", 5))).thenReturn(new RatingReview("good", 5));
     }
 
     @Test
@@ -154,11 +154,22 @@ class CustomerServiceImplTest {
 
     @Test
     void getAddOn() {
-        when(customerServiceImplMock.getAddOn("sanitize")).thenReturn(new AddOn("sanitize",399));
+        when(customerServiceImplMock.getAddOn("sanitize")).thenReturn(new AddOn("sanitize", 399));
     }
 
     @Test
     void getAllWashPackages() {
-        when(customerServiceImplMock.getAllWashPackages()).thenReturn(new ArrayList<>());
+        when(customerServiceImplMock.getAllWashPackages()).thenReturn(Arrays.asList(
+                new WashPack("wash", 123)
+        ));
+    }
+
+    @Test
+    @DisplayName("Cancel an order before Payment")
+    void cancelOrder() {
+        Order order = new Order(
+                1, "basic", "suv", 1234,
+                "customer1", "washer1", new AddOn("sanitize", 499), new Date(), "success", "email@email.com");
+        when(customerServiceImplMock.cancelOrder(1)).thenReturn(order);
     }
 }

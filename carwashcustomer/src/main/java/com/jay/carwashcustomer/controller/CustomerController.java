@@ -48,15 +48,15 @@ public class CustomerController {
     }
 
     @GetMapping("/addOn-menu")
-    public ResponseEntity<List<AddOn>> getAddOns(){
-        return new ResponseEntity<>(customerServiceImpl.getAllAddOns(),HttpStatus.OK);
+    public ResponseEntity<List<AddOn>> getAddOns() {
+        return new ResponseEntity<>(customerServiceImpl.getAllAddOns(), HttpStatus.OK);
     }
 
     @GetMapping("/schedule-wash/{date}")
     public String scheduleWash(@DateTimeFormat(pattern = "dd.MM.yyyy") @PathVariable LocalDate date) throws Exception {
         String sent = customerServiceImpl.sendNotification("book-wash at: " + date + " By customer: " + jwtFilter.getLoggedInUserName());
         String resp = customerServiceImpl.receiveNotification();
-        return "Wash Need on Date: "+date.toString();
+        return "Wash Need on Date: " + date.toString();
     }
 
     @GetMapping("/date/{date}")
@@ -71,6 +71,11 @@ public class CustomerController {
         String resp = customerServiceImpl.receiveNotification();
 
         return sent;
+    }
+
+    @GetMapping("/cancel-order") //Can Cancel Pending Orders / Unpaid
+    public Order cancelOrder(@RequestParam("orderId") int id) {
+        return customerServiceImpl.cancelOrder(id);
     }
 
     @GetMapping("/continue") //Proceed to create an ORDER for the Wash

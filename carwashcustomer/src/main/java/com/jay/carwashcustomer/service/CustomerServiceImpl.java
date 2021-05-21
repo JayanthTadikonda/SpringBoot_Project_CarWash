@@ -207,6 +207,10 @@ public class CustomerServiceImpl implements CustomerService {
         return new OrderResponse(placedOrder, "Order for Wash is placed with Washer Partner");
     }
 
+    public Order cancelOrder(int id) {
+        return restTemplate.getForObject("http://order-microservice/order/cancel-order", Order.class);
+    }
+
     public RatingReview giveRatingAndReview(RatingReview ratingReview) {
         //ratingReview.setWasherName();
         return restTemplate.postForObject("http://washer-microservice/washer/get-rating", ratingReview, RatingReview.class);
@@ -266,7 +270,7 @@ public class CustomerServiceImpl implements CustomerService {
         return packList;
     }
 
-    public List<AddOn> getAllAddOns(){
+    public List<AddOn> getAllAddOns() {
         ResponseEntity<List<AddOn>> packs =
                 restTemplate.exchange("http://admin/admin/all-addOns",
                         HttpMethod.GET, null, new ParameterizedTypeReference<List<AddOn>>() {

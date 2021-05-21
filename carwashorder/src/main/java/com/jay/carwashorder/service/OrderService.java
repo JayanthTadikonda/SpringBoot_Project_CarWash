@@ -13,6 +13,8 @@ public interface OrderService {
 
     public Order payAfterWash(Order order) throws JsonProcessingException;
 
+    public Order cancelOrder(int id);
+
     public List<Order> getOrderListByName(String name);
 
     public List<Order> getWasherOrderListByName(String name);

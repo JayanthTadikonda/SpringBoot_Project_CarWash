@@ -65,6 +65,19 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
+    public Order cancelOrder(int id) {
+        Order orderToCancel = null;
+        List<Order> orderList = orderRepository.findAll();
+            for (Order o : orderList) {
+                if (o.getOrderId() == id && o.getPaymentStatus().equalsIgnoreCase("pending")) {
+                    orderToCancel = o;
+                    o.setPaymentStatus("Order Cancelled");
+                    orderRepository.save(o);
+                }
+            }
+        return orderToCancel;
+    }
+
     public List<Order> getOrderListByName(String name) {
         List<Order> orderList = orderRepository.findAll().stream().filter(a -> a.getCustomerName().equalsIgnoreCase(name)).collect(Collectors.toList());
         if (orderList == null) {

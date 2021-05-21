@@ -28,6 +28,11 @@ public class OrderController {
         return orderServiceImpl.payAfterWash(order);
     }
 
+    @GetMapping("/cancel-order")
+    public Order cancelOrder(int id) {
+        return orderServiceImpl.cancelOrder(id);
+    }
+
     @PostMapping("/book-wash")
     public TransactionResponse placeOrder(@RequestBody TransactionRequest request) {
         return orderServiceImpl.saveOrder(request);
